@@ -11,7 +11,7 @@ steps:
       branch:
         only:
           - /^master$/i
-  push_docker_image:
+  push_CF_image:
     type: parallel
     steps:
       push_to_codefresh:
@@ -20,3 +20,13 @@ steps:
         candidate: '${{BuildDockerImage}}'
         tag: 'production-${{CF_SHORT_REVISION}}'
         registry: cfcr
+   DeployApp:
+    image: codefresh/cf-deploy-kubernetes
+    tag: latest
+    working_directory: ${{main_clone}}
+    commands:
+      - /cf-deploy-kubernetes ./codefresh/deployment-prod.yml
+    environment:
+      - KUBECONTEXT=iugu-dev@iugu-dev
+      - KUBERNETES_NAMESPACE=default
+      - KUBERNETES_DEPLOYMENT_TIMEOUT=600
