@@ -11,7 +11,7 @@ steps:
       branch:
         only:
           - /^master$/i
-  push_CF_image:
+  Push_CF_image:
     type: parallel
     steps:
       push_to_codefresh:
@@ -20,7 +20,7 @@ steps:
         candidate: '${{BuildDockerImage}}'
         tag: 'production-${{CF_SHORT_REVISION}}'
         registry: cfcr
-   DeployApp:
+  DeployApp:
     image: codefresh/cf-deploy-kubernetes
     tag: latest
     working_directory: ${{main_clone}}
