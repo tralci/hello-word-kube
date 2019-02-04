@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 metadata:
   name: hello-word-kube
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: hello-word-kube
