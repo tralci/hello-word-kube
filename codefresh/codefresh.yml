@@ -25,7 +25,7 @@ steps:
     tag: latest
     working_directory: ${{main_clone}}
     commands:
-      - /cf-deploy-kubernetes ./codefresh/deployment-prod.yml
+      - /cf-deploy-kubernetes ./codefresh/deployment.yml
     environment:
       - KUBECONTEXT=iugu-dev@iugu-dev
       - KUBERNETES_NAMESPACE=default
