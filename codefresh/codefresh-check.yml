@@ -25,3 +25,7 @@ steps:
         set:
           - '${{BuildingDockerImage.imageId}}':
               - CF_QUALITY: false
+    when:
+      condition:
+        all:
+          CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
