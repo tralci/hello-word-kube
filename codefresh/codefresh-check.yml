@@ -15,3 +15,13 @@ steps:
     image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
     commands:
       - echo $(date)
+    on_success:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: false
