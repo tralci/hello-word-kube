@@ -18,10 +18,14 @@ steps:
     on_success:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{BuildingDockerImage}}':
               - CF_QUALITY: true
     on_fail:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{BuildingDockerImage}}':
               - CF_QUALITY: false
+    when:
+      condition:
+        all:
+          CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
