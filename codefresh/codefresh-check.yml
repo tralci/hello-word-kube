@@ -15,17 +15,3 @@ steps:
     image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
     commands:
       - echo $(date)
-    on_success:
-      metadata:
-        set:
-          - '${{BuildingDockerImage}}':
-              - CF_QUALITY: true
-    on_fail:
-      metadata:
-        set:
-          - '${{BuildingDockerImage}}':
-              - CF_QUALITY: false
-    when:
-      condition:
-        all:
-          CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
