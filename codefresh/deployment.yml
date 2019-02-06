@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ahello-word-kube
-          image: 'r.cfcr.io/tralci/tralci/hellowordkube:production-{{CF_SHORT_REVISION}}'
+          image: 'r.cfcr.io/iugu/tralci/hellowordkube:production-{{CF_SHORT_REVISION}}'
           ports:
             - containerPort: 80
               protocol: TCP
