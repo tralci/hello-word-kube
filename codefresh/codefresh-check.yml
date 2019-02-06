@@ -11,29 +11,7 @@ steps:
       condition:
         all:
           CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
-  TestALLCode:
-    title: Test all the code
-    type: composition
-    composition:
-      version: '2'
-      services:
-        db:
-          image: redis
-    composition_candidates:
-        web:
-        image: '${{BuildingDockerImage}}'
-        depends_on:
-          - db
-        links:
-          - "db:db"
-        command: bash -c "./codefresh/test-ci/test.sh"
-    on_success:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: true
-    on_fail:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: false
+  UnitTests:
+    image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
+    commands:
+      - echo $(date)
