@@ -7,10 +7,6 @@ steps:
     working_directory: ./
     tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
-    when:
-      condition:
-        all:
-          CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
   UnitTests:
     image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
     commands:
