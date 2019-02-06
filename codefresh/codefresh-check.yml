@@ -1,6 +1,6 @@
 version: '1.0'
 steps:
-  BuildingImage:
+  BuildingDockerImage:
     title: Building Docker Image
     type: build
     image_name: tralci/hello-world-kube
