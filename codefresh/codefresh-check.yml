@@ -3,7 +3,7 @@ steps:
   BuildingDockerImage:
     title: Building Docker Image
     type: build
-    image_name: petlove/alligator
+    image_name: tralci/hello-world-kube
     working_directory: ./
     tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
