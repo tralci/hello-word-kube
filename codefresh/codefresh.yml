@@ -1,4 +1,7 @@
 version: '1.0'
+stages:
+  - build
+  - deploy
 steps:
   BuildDockerImage:
     title: Building Docker Image
@@ -7,6 +10,7 @@ steps:
     working_directory: ./
     tag: 'production-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
+    stage: build
     when:
       branch:
         only:
@@ -20,6 +24,7 @@ steps:
         candidate: '${{BuildDockerImage}}'
         tag: 'production-${{CF_SHORT_REVISION}}'
         registry: cfcr
+      Satage: build
   DeployApp:
     image: codefresh/cf-deploy-kubernetes
     tag: latest
@@ -30,3 +35,4 @@ steps:
       - KUBECONTEXT=iugu-dev@iugu-dev
       - KUBERNETES_NAMESPACE=default
       - KUBERNETES_DEPLOYMENT_TIMEOUT=600
+    stage: deploy
