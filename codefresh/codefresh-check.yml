@@ -1,4 +1,7 @@
 version: '1.0'
+stages:
+  - build
+  - deploy
 steps:
   BuildingDockerImage:
     title: Building Docker Image
@@ -7,12 +10,14 @@ steps:
     working_directory: ./
     tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
+    stage: build
     when:
       condition:
         all:
           CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
   UnitTests:
     image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
+    stage: test
     commands:
       - echo $(date)
     on_success:
