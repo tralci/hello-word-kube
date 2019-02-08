@@ -8,13 +8,13 @@ steps:
     type: build
     image_name: tralci/hellowordkube
     working_directory: ./
-    tag: 'production-${{CF_SHORT_REVISION}}'
+    tag: 'dev-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
     stage: build
     when:
       branch:
         only:
-          - /^master$/i
+          - /^dev-$/i
   Push_CF_image:
     type: parallel
     steps:
@@ -22,7 +22,7 @@ steps:
         title: Pushing to Docker Registry
         type: push
         candidate: '${{BuildDockerImage}}'
-        tag: 'production-${{CF_SHORT_REVISION}}'
+        tag: 'dev-${{CF_SHORT_REVISION}}'
         registry: cfcr
     stage: build
   DeployApp:
@@ -31,7 +31,7 @@ steps:
     working_directory: ${{main_clone}}
     stage: deploy
     commands:
-      - /cf-deploy-kubernetes ./codefresh/deployment.yml
+      - /cf-deploy-kubernetes ./codefresh/deployment-dev.yml
     environment:
       - KUBECONTEXT=iugu-dev@iugu-dev
       - KUBERNETES_NAMESPACE=default
