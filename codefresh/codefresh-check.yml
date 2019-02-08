@@ -1,7 +1,7 @@
 version: '1.0'
 stages:
   - build
-  - deploy
+  - test
 steps:
   BuildingDockerImage:
     title: Building Docker Image
