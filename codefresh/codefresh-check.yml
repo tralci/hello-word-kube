@@ -16,7 +16,7 @@ steps:
         all:
           CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
   UnitTests:
-    image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test commands
+    image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test command
     stage: test
     commands:
       - echo $(date)
