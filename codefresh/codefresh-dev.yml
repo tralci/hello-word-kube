@@ -8,7 +8,7 @@ steps:
     type: build
     image_name: tralci/hellowordkube
     working_directory: ./
-    tag: 'dev-${{CF_SHORT_REVISION}}'
+    tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
     dockerfile: ./Dockerfile
     stage: build
     when:
@@ -22,7 +22,7 @@ steps:
         title: Pushing to Docker Registry
         type: push
         candidate: '${{BuildDockerImage}}'
-        tag: 'dev-${{CF_SHORT_REVISION}}'
+        tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
         registry: cfcr
     stage: build
   DeployApp:
