@@ -22,10 +22,10 @@ spec:
           resources:
             limits:
               cpu: 100m
-              memory: 300Mi
+              memory: 800Mi
             requests:
               cpu: 50m
-              memory: 800Mi
+              memory: 300Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
