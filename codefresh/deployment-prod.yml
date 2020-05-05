@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: hello-word-kube-prod
-          image: 'gcr.io/legacy-276221/tralci/hello-world:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}-${{CF_BUILD_ID}}'
+          image: 'gcr.io/legacy-276221/tralci/hello-world:{{CF_BRANCH_TAG_NORMALIZED}}-{{CF_SHORT_REVISION}}-{{CF_BUILD_ID}}'
           ports:
             - containerPort: 80
               protocol: TCP
