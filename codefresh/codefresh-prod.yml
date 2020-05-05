@@ -23,7 +23,7 @@ steps:
         type: push
         candidate: '${{BuildDockerImage}}'
         tag: 'production-${{CF_SHORT_REVISION}}'
-        registry: cfcr
+        registry: gcr
     stage: build
   DeployApp:
     image: codefresh/cf-deploy-kubernetes
@@ -33,6 +33,6 @@ steps:
     commands:
       - /cf-deploy-kubernetes ./codefresh/deployment-prod.yml
     environment:
-      - KUBECONTEXT=iugu-dev@iugu-dev
+      - KUBECONTEXT=legacy@legacy
       - KUBERNETES_NAMESPACE=default
       - KUBERNETES_DEPLOYMENT_TIMEOUT=600
