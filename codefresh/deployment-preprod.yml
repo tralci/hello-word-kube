@@ -1,31 +1,31 @@
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
-  name: hello-word-kube-dev
+  name: hello-word-kube-preprod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-word-kube-dev
+      app: hello-word-kube-preprod
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: hello-word-kube-dev
+        app: hello-word-kube-preprod
     spec:
       containers:
-        - name: hello-word-kube-dev
-          image: 'r.cfcr.io/iugu/tralci/hellowordkube:{{CF_BRANCH}}-{{CF_SHORT_REVISION}}'
+        - name: hello-word-kube-preprod
+          image: 'gcr.io/legacy-276221/tralci/hello-world:{{CF_BRANCH_TAG_NORMALIZED}}-{{CF_SHORT_REVISION}}-{{CF_BUILD_ID}}'
           ports:
             - containerPort: 80
               protocol: TCP
           resources:
             limits:
-              cpu: 50m
-              memory: 100Mi
+              cpu: 40m
+              memory: 200Mi
             requests:
-              cpu: 10m
-              memory: 50Mi
+              cpu: 20m
+              memory: 100Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
@@ -34,7 +34,7 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       imagePullSecrets:
-        - name: codefresh-generated-r.cfcr.io-cfcr-default
+        - name: codefresh-generated-gcr.io-gcr-default
       schedulerName: default-scheduler
   strategy:
     type: RollingUpdate

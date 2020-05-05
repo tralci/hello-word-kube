@@ -24,7 +24,7 @@ steps:
     working_directory: ${{main_clone}}
     stage: deploy
     commands:
-      - /cf-deploy-kubernetes ./codefresh/deployment-prod.yml
+      - /cf-deploy-kubernetes ./codefresh/deployment-preprod.yml
     environment:
       - KUBECONTEXT=legacy@legacy
       - KUBERNETES_NAMESPACE=default
