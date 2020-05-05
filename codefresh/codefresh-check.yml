@@ -1,32 +1,35 @@
 version: '1.0'
 stages:
+  - cloning_repo
   - build
   - test
 steps:
-  BuildingDockerImage:
-    title: Building Docker Image
+  main_clone:
+    title: Cloning main repository...
+    stage: cloning_repo
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    git: github
+  build_docker_image:
+    title: Build Docker Image
     type: build
-    image_name: tralci/hello-world-kube-dev
-    working_directory: ./
-    tag: '${{CF_BRANCH}}-${{CF_SHORT_REVISION}}'
-    dockerfile: ./Dockerfile
     stage: build
-    when:
-      condition:
-        all:
-          CheckCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "check ci") == true'
+    image_name: tralci/hello-world
+    working_directory: ./
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}-${{CF_BUILD_ID}}'
   UnitTests:
-    image: '${{BuildingDockerImage}}' # image that contains installed tools for performing test command
+    image: '${{build_docker_image}}' # image that contains installed tools for performing test command
     stage: test
     commands:
       - echo $(date)
     on_success:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{build_docker_image.imageId}}':
               - CF_QUALITY: true
     on_fail:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{build_docker_image.imageId}}':
               - CF_QUALITY: false
