@@ -11,13 +11,13 @@ steps:
     id: 'Push'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/compra-carteira:$SHORT_SHA'
+      - 'gcr.io/$PROJECT_ID/hello-word-kube:$SHORT_SHA'
 
   - name: 'gcr.io/cloud-builders/gke-deploy:stable'
     id: 'Deploy'
     args:
       - 'run'
       - '--filename=k8s/'
-      - '--image=gcr.io/$PROJECT_ID/compra-carteira:$SHORT_SHA'
+      - '--image=gcr.io/$PROJECT_ID/hello-word-kube:$SHORT_SHA'
       - '--location=us-east1-c'
       - '--cluster=prv-compradecarteiras'
