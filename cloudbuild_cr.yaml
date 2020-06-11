@@ -14,7 +14,7 @@ steps:
       - 'gcr.io/$PROJECT_ID/hello-world-kube:$SHORT_SHA'
 # Deploy image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'Push'
+    id: 'Deploy'
     args:
       - 'run'
       - 'deploy'
