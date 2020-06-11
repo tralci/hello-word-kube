@@ -11,7 +11,7 @@ steps:
     id: 'Push'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/hello-word-kube:$SHORT_SHA'
+      - 'gcr.io/$PROJECT_ID/hello-world-kube:$SHORT_SHA'
 
   - name: 'gcr.io/cloud-builders/gke-deploy:stable'
     id: 'Deploy'
