@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: compra-carteira
-          image: gcr.io/prv-compradecarteiras/compra-carteira:latest
+          image: docker pull gcr.io/prv-compradecarteiras/hello-word-kube:latest
           envFrom:             
           - secretRef:                
               name: compra-carteira-env
